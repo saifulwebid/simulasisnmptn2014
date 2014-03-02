@@ -35,7 +35,21 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	// if (Auth::guest()) return Redirect::guest('login');
+	if ( Auth::guest() )
+		return Redirect::route('auth.login');
+});
+
+Route::filter('adminOnly', function()
+{
+	if ( Auth::user()->role !== 'admin' )
+		return "Harraaam jaddahh...";
+});
+
+Route::filter('operatorOnly', function()
+{
+	if ( Auth::user()->role !== 'operator' || Auth::user()->role !== 'admin' )
+		return "Harraaaaaam jaddah.. bukan operator loe.";
 });
 
 
