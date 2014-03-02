@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'HomeController@getIndex');
+Route::get('login', array('as' => 'auth.login', 'uses' => 'AuthController@getLogin'));
+Route::post('login', array('uses' => 'AuthController@postLogin'));
+Route::get('logout', array('as' => 'auth.logout', 'uses' => 'AuthController@getLogout'));
