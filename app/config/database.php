@@ -49,9 +49,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'database',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'sman2bdg_snmptn_saiful',
+			'username'  => 'sman2bdg_saiful',
+			'password'  => 'amanbanget1996',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

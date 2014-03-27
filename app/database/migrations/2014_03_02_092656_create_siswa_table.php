@@ -19,8 +19,11 @@ class CreateSiswaTable extends Migration {
 			$table->string('nisn', 10)->nullable();
 			$table->string('password', 60);
 			$table->string('nama', 100);
-			$table->integer('kelas');
+			$table->integer('kelas_id')->nullable();;
 			$table->enum('role', array('admin', 'operator', 'user'))->default('user');
+			$table->string('tempat_lahir', 50);
+			$table->date('tanggal_lahir')->default('1996-01-01');
+			$table->boolean('verifikasi');
 			$table->timestamps();
 		});
 	}

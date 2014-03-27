@@ -48,6 +48,12 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
+	if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+	{
+		Log::error('NotFoundHttpException occured!',
+			array('url' => Request::server('REQUEST_URI'), 'nis' => ( Auth::check() ? Auth::user()->nis : '' ), 'nama' => ( Auth::check() ? Auth::user()->nama : '' ) ));
+		return Response::view('404', array(), 404);
+	}
 	Log::error($exception);
 });
 
@@ -64,7 +70,8 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	//return Response::make("Be right back!", 503);
+	return Response::view('down', array(), 503);
 });
 
 /*

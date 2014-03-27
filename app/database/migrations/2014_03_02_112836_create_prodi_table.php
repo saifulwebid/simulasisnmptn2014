@@ -15,6 +15,9 @@ class CreateProdiTable extends Migration {
 		Schema::create('prodi', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('ptn_id');
+			$table->string('nama', 150);
+			$table->enum('bidang', array('IPA', 'IPS'));
 			$table->timestamps();
 		});
 	}

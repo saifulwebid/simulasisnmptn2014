@@ -16,7 +16,6 @@ class CreatePtnTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('nama', 150);
-			$table->string('')
 			$table->timestamps();
 		});
 	}

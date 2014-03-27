@@ -5,11 +5,6 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Siswa extends Eloquent implements UserInterface, RemindableInterface {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
 	protected $table = 'siswa';
 
 	/**
@@ -46,7 +41,28 @@ class Siswa extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function getReminderEmail()
 	{
-		return $this->email;
+		// return $this->email;
+		return null;
+	}
+
+	public function kelas()
+	{
+		return $this->belongsTo('Kelas');
+	}
+
+	public function nilai()
+	{
+		return $this->hasMany('Nilai');
+	}
+
+	public function pilihan()
+	{
+		return $this->hasMany('Pilihan');
+	}
+
+	public function testimoni()
+	{
+		return $this->hasOne('Testimoni');
 	}
 
 }

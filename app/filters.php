@@ -13,7 +13,9 @@
 
 App::before(function($request)
 {
-	//
+	if ( Auth::check() && !Request::ajax() && !Request::is('admin/log*') )
+		Log::info(Request::method() . ' request.',
+			array('url' => Request::server('REQUEST_URI'), 'nis' => Auth::user()->nis, 'nama' => Auth::user()->nama ));
 });
 
 
@@ -35,21 +37,32 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	// if (Auth::guest()) return Redirect::guest('login');
 	if ( Auth::guest() )
-		return Redirect::route('auth.login');
+		return Redirect::guest( URL::route('auth.login') );
 });
 
 Route::filter('adminOnly', function()
 {
 	if ( Auth::user()->role !== 'admin' )
-		return "Harraaam jaddahh...";
+		return View::make('errors.unauthorized');
 });
 
 Route::filter('operatorOnly', function()
 {
-	if ( Auth::user()->role !== 'operator' || Auth::user()->role !== 'admin' )
-		return "Harraaaaaam jaddah.. bukan operator loe.";
+	if ( !(Auth::user()->role == 'operator' || Auth::user()->role == 'admin') )
+		return View::make('errors.unauthorized');
+});
+
+Route::filter('verified', function()
+{
+	if ( Auth::user()->verifikasi == 0 )
+		return Redirect::route('self.verify')->with('verify_first', true);
+});
+
+Route::filter('pilihDulu', function()
+{
+	if ( count(Auth::user()->pilihan) == 0 )
+		return Redirect::route('self.pilihan')->with('pilih_dulu', true);
 });
 
 
